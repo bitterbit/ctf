@@ -1,0 +1,11 @@
+# Steps to solve
+1. Compile dosbox with debug enabled
+https://www.vogons.org/viewtopic.php?t=3944
+
+2. Examined the assembly, Saw an interesting function with loop
+Running the dosbox I saw the function is not called if not given a long enough input
+Also seems the input is limited to 8 bytes
+
+3. Find the compare right after the interesting function, the wanted value is 0xcfe1
+4. Input controlled strings and record the output value, this way we can know how much each letter at each position is valued
+5. Solve in python
