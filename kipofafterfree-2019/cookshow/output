@@ -1,0 +1,17 @@
+[+] Connecting to ctf.kaf.sh on port 7030: Done
+[!] Only Linux is supported for ASLR checks.
+[*] yeet@ctf.kaf.sh:
+    Distro    Unknown Unknown
+    OS:       Unknown
+    Arch:     Unknown
+    Version:  0.0.0
+    ASLR:     Disabled
+    Note:     Susceptible to ASLR ulimit trick (CVE-2016-3672)
+[+] Opening new channel: '1': Done
+[*] [+] add receipe, size: 1
+[*] [+] add receipe, size: 2
+[*] [+] remove receipe, size: 1
+[*] [+] add receipe, size: 2
+[*] [+] trigger
+[+] KAF{Do_Y0U_Ev3N_MALLoC_bruh?}
+[*] Closed SSH channel with ctf.kaf.sh
