@@ -49,7 +49,7 @@ def leak_heap(conn):
 
 def calc_pointer(heap_leak, file_leak):
     """
-    Calculate the offsets after doing `house_of_cards`
+    Calculate the offsets after doing `house of force`
     heap base: (gdb) libs            # look for [heap] line
     top_chunk: x/20gx &main_arena    # look for pointer after zeros
     """
