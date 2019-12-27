@@ -1,0 +1,35 @@
+ubuntu :: ctf/kipodctf/clonewars » python solve.py             
+[+] Connecting to ctf2.kaf.sh on port 7000: Done
+[!] Only Linux is supported for ASLR checks.
+[*] yeet@ctf2.kaf.sh:
+    Distro    Unknown Unknown
+    OS:       Unknown
+    Arch:     Unknown
+    Version:  0.0.0
+    ASLR:     Disabled
+    Note:     Susceptible to ASLR ulimit trick (CVE-2016-3672)
+[+] Opening new channel: '1': Done
+[*] heap addr 0x555555757670
+[*] FILE at 0x555555756010
+[*] Switching to interactive mode
+blablabla
+
+ [1] Build Death Star
+ [2] R2D2???????
+ [3] Prepare Starships
+ [4] Deploy Troopers
+ [5] LIGHTSABERS XDXD
+ [6] Come to the dark side...
+ [7] Exit
+
+Your choice: 6
+
+File is at: 93824994336784
+$ $ cat file.txt
+cat file.txt
+cat: file.txt: No such file or directory
+$ $ cat flag.txt
+cat flag.txt
+KAF{MaY_tHe_F0RCE_B3_W1tH_YOUUU10293012884}
+$ $  
+
