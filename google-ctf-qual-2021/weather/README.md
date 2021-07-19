@@ -25,7 +25,7 @@ The first thing we saw was not too many functions, about half of them "unreachab
 `configure_custon_print_functions` is called on init (before main) and by putting a breakpoint at the functions it registers we can see some of them are executed in a normal execution flow.
 
 _configure_custon_print_functions_
-![1626517592.png](/.pastes/1626517592.png)
+![1626517592.png](/.pastes/1626517592.png =300x150)
 
 ### register_prinf_function
 From the GNU manual
