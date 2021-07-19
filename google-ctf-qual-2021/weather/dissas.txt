@@ -1,0 +1,285 @@
+========== 0 ==========
+C.always 52
+printf(%s)
+
+# memsmo
+========== 7 ==========
+stack[(int) 3] = a52[stack[(int) 1]]
+stack[(int) 3] ^= stack[(int) 0]
+a52[stack[(int) 1]] = stack[(int) 3]
+stack[(int) 1] += 4
+stack[(int) 3] = stack[(int) 1]
+stack[(int) 3] -= stack[(int) 2]
+C.lt 7 stack[(int) 3] < 0
+
+========== 52 ==========
+stack[(int) 0] = a52[4096]
+stack[(int) 0] &= 255
+stack[(int) 1] = stack[(int) 0]
+stack[(int) 1] <<= 8
+stack[(int) 0] |= stack[(int) 1]
+stack[(int) 1] = stack[(int) 0]
+stack[(int) 1] <<= 16
+stack[(int) 0] |= stack[(int) 1]
+stack[(int) 1] = 200
+stack[(int) 2] = 1788
+C.always 7
+at52[6144] = 1701736302
+stack[(int) 0] = a52[200]
+stack[(int) 0] &= 255
+stack[(int) 0] -= 37            # '%'
+C.eq 200 stack[(int) 0] == 0    # check if decrypted stage two successfully
+
+########## stage two main ##########
+========== 200 ==========
+stack[(int) 4] = 5000
+stack[(int) 0] = 13200
+C.always 337             # this loops 400~ times, maybe decrypts winning print command?
+
+stack[(int) 0] = 0
+C.always 500             # loop over input
+C.always 1262            # check mangled input agains magics
+C.eq 653 stack[(int) 0] == 0 # this was never called so we dont have it in cache, proably would be good to pass this check
+							 # looks like this is relative to input
+
+
+########## maybe demangle winning print ##########
+========== 337 ==========
+stack[(int) 1] = 1
+stack[(int) 2] = 2
+C.always 261
+C.gt 322 stack[(int) 1] > 0
+stack[(int) 0] += 1
+stack[(int) 1] = 13600
+stack[(int) 1] -= stack[(int) 0]
+C.gt 337 stack[(int) 1] > 0       # stack[1] is a decreasing counter
+
+========== 322 ==========
+a52[stack[(int) 4]] = stack[(int) 0]
+stack[(int) 4] += 2
+
+========== 261 ==========
+stack[(int) 3] = stack[(int) 0]
+stack[(int) 3] %= stack[(int) 2]
+C.eq 253 stack[(int) 3] == 0      # if stack[3] == 0: stack[1] = 0
+
+stack[(int) 2] += 1
+stack[(int) 3] = stack[(int) 2]
+stack[(int) 3] *= stack[(int) 3]
+stack[(int) 3] -= stack[(int) 0]   # decrease counter
+stack[(int) 3] -= 1
+C.lt 261 stack[(int) 3] < 0        # loop
+
+========== 253 ==========
+stack[(int) 1] = 0
+
+########## mangeling loop ##########
+
+========== 540 ==========
+stack[(int) 2] = stack[(int) 0] # index
+stack[(int) 2] *= 2             # index*2
+stack[(int) 2] += 5000          # index += 5000 (offset to stage_two_main)
+stack[(int) 2] = a52[stack[(int) 2]]
+stack[(int) 2] &= 255
+
+stack[(int) 4] ^= stack[(int) 2] # c ^= (stage_two_main[i*2] & 0xff)
+
+stack[(int) 0] += 1              # index++
+stack[(int) 2] = stack[(int) 0]  # tmp_index
+C.always 470  # do calculations(index++)
+
+stack[(int) 4] += stack[(int) 0]      # c += mangle(index++) & 0xff
+stack[(int) 4] &= 255
+
+stack[(int) 0] = stack[(int) 2]       # index = tmp_index
+stack[(int) 2] -= 1
+stack[(int) 2] += 4500                # mangled output offset
+a52[stack[(int) 2]] = stack[(int) 4]  # input[index] = c
+C.always 500
+
+========== 500 ========== # start of function
+
+# stack[4] = input[stack[2]]
+# c        = input[index]
+stack[(int) 2] = stack[(int) 0]       # index
+stack[(int) 2] += 4096                # input[index]
+stack[(int) 4] = a52[stack[(int) 2]]
+stack[(int) 4] &= 255                 # c = input[index]
+C.gt 540 stack[(int) 4] > 0           # while input[index] != NULL
+
+========== 470 ==========
+# mangle calculations
+stack[(int) 1] = stack[(int) 0]
+stack[(int) 1] -= 1
+C.eq 397 stack[(int) 1] == 0  # if stack[1] == 0: stack[0] = 0
+C.gt 428 stack[(int) 1] > 0
+
+========== 397 ==========
+stack[(int) 0] = 0
+
+========== 428 ==========
+stack[(int) 1] = stack[(int) 0]
+stack[(int) 1] %= 2
+C.eq 405 stack[(int) 1] == 0
+C.gt 413 stack[(int) 1] > 0
+C.always 470                # recurse
+stack[(int) 0] += 1
+
+========== 405 ==========
+stack[(int) 0] /= 2
+
+========== 413 ==========
+stack[(int) 0] *= 3
+stack[(int) 0] += 1
+
+
+
+
+========== 1262 ==========
+stack[(int) 0] = 0 # result
+
+stack[(int) 1] = 0
+stack[(int) 1] += 4500                 # user input offset
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 1374542625
+stack[(int) 2] += 1686915720
+stack[(int) 2] += 1129686860
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+stack[(int) 1] = 4
+stack[(int) 1] += 4500
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 842217029
+stack[(int) 2] += 1483902564
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+stack[(int) 1] = 8
+stack[(int) 1] += 4500
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 1868013731
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+stack[(int) 1] = 12
+stack[(int) 1] += 4500
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 584694732
+stack[(int) 2] += 1453312700
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+stack[(int) 1] = 16
+stack[(int) 1] += 4500
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 223548744
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+stack[(int) 1] = 20
+stack[(int) 1] += 4500
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 1958883726
+stack[(int) 2] += 1916008099
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+stack[(int) 1] = 24
+stack[(int) 1] += 4500
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 2] = 0
+stack[(int) 2] += 1829937605
+stack[(int) 2] += 1815356086
+stack[(int) 2] += 253836698
+stack[(int) 1] ^= stack[(int) 2]
+stack[(int) 0] |= stack[(int) 1]
+
+
+#### win sequence? 
+========== 653 ==========
+stack[(int) 0] = 123456789
+
+stack[(int) 1] = 0                   #index
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]] #user input
+stack[(int) 0] ^= stack[(int) 1]     # input[index] ^ 123456789
+stack[(int) 2] = 0                   # var2 = 846786818
+stack[(int) 2] += 846786818
+stack[(int) 2] ^= stack[(int) 0]     # var2 = 846786818 ^ 123456789 ^ input[0]
+stack[(int) 1] = 0
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2] # output[0] = var2
+
+stack[(int) 1] = 4
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 0] ^= stack[(int) 1]
+stack[(int) 2] = 0
+stack[(int) 2] += 1443538759
+stack[(int) 2] ^= stack[(int) 0]
+stack[(int) 1] = 4
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2]
+
+stack[(int) 1] = 8
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 0] ^= stack[(int) 1]
+stack[(int) 2] = 0
+stack[(int) 2] += 1047515510
+stack[(int) 2] ^= stack[(int) 0]
+stack[(int) 1] = 8
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2]
+
+stack[(int) 1] = 12
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 0] ^= stack[(int) 1]
+stack[(int) 2] = 0
+stack[(int) 2] += 359499514
+stack[(int) 2] += 1724461856
+stack[(int) 2] ^= stack[(int) 0]
+stack[(int) 1] = 12
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2]
+
+stack[(int) 1] = 16
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 0] ^= stack[(int) 1]
+stack[(int) 2] = 0
+stack[(int) 2] += 241024035
+stack[(int) 2] ^= stack[(int) 0]
+stack[(int) 1] = 16
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2]
+
+stack[(int) 1] = 20
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 0] ^= stack[(int) 1]
+stack[(int) 2] = 0
+stack[(int) 2] += 222267724
+stack[(int) 2] ^= stack[(int) 0]
+stack[(int) 1] = 20
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2]
+
+stack[(int) 1] = 24
+stack[(int) 1] += 4096
+stack[(int) 1] = a52[stack[(int) 1]]
+stack[(int) 0] ^= stack[(int) 1]
+stack[(int) 2] = 0
+stack[(int) 2] += 844096018
+stack[(int) 2] ^= stack[(int) 0]
+stack[(int) 1] = 24
+stack[(int) 1] += 6144
+a52[stack[(int) 1]] = stack[(int) 2]
